@@ -29,6 +29,14 @@ class CalController {
         //this._timeCalcEl.innerHTML = "00:00";
     }
 
+
+    iniButtonEvents(){
+        //all traz todos os elementos que ele encontrar na consulta, dentro do doc.
+       let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+
+    }
+
     setDisplayDateTime(){
         this.displayDate = this.currentDate.toLocaleDateString(this._locale,{
             day:"2-digit",
