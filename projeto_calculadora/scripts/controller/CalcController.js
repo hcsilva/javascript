@@ -29,7 +29,7 @@ class CalController {
         this.setLastNumberToDisplay();
 
         //innerHTML, coloque uma informação lá dentro, no formato HTML
-        // displayCalcEl.innerHTML="4567";
+        //displayCalcEl.innerHTML="4567";
         //this._dateCalcEl.innerHTML = "01/01/2018";
         //this._timeCalcEl.innerHTML = "00:00";
     }
@@ -103,7 +103,6 @@ class CalController {
         let last = '';
 
         this._lastOperator = this.getLastItem();
-        
 
         if (this._operation.length > 3) {
             last = this._operation.pop();
