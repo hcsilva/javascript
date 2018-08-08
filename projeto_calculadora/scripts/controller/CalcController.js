@@ -2,6 +2,8 @@ class CalController {
     constructor() {
 
         //_(underline) diz que o atributo é privado
+        this._lastOperator = "";
+        this._lastNumber = "";
         this._operation = [];
         this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector('#display');
@@ -24,7 +26,7 @@ class CalController {
 
         }, 1000);
 
-
+        this.setLastNumberToDisplay();
 
         //innerHTML, coloque uma informação lá dentro, no formato HTML
         // displayCalcEl.innerHTML="4567";
@@ -50,11 +52,15 @@ class CalController {
         //para zera o array
         this._operation = [];
 
+        this.setLastNumberToDisplay();
+
     }
 
     clearEntry() {
         //pop retira o último item adicionado no array
         this._operation.pop;
+
+        this.setLastNumberToDisplay();
 
     }
 
@@ -72,11 +78,84 @@ class CalController {
 
     }
 
+    pushOperation(value) {
+
+        this._operation.push(value);
+
+        if (this._operation.length > 3) {
+
+            this.calc();
+        }
+    }
+
+
+    getResult() {
+
+        //join, serve para juntar tudo, ele precisa de um parâmetro que vai ser o separador
+        //nesse caso ele está juntando tudo dentro do array
+        return eval(this._operation.join(""));
+
+    }
+
+
+    calc() {
+
+        let last = '';
+
+        this._lastOperator = this.getLastItem();
+
+        if (this._operation.length > 3) {
+            last = this._operation.pop();
+
+            this._lastNumber = this.getResult();
+        } else if (this._operation.length == 3) {
+
+            this._lastNumber = this.getLastItem(false);
+        }
+
+
+        let result = this.getResult();
+
+        if (last == '%') {
+
+            result /= 100;
+            this._operation = [result];
+
+        } else {
+            this._operation = [result];
+
+            if (last) this._operation.push(last);
+        }
+        this.setLastNumberToDisplay();
+    }
+
+
+    getLastItem(isOperator = true) {
+        let lastItem;
+
+        for (let i = this._operation.length - 1; i >= 0; i--) {
+
+                if (this.isOperator(this._operation[i]) == isOperator) {
+                    lastItem = this._operation[i];
+                    break;
+                }
+        }
+
+        return lastItem;
+
+    }
+
+
+    setLastNumberToDisplay() {
+        let lastNumber = this.getLastItem(false);
+
+        if (!lastNumber) lastNumber = 0;
+
+        this.displayCalc = lastNumber;
+    }
+
 
     addOperation(value) {
-
-        console.log('A', isNaN(this.getLastOperation()));
-
         //isNaN (IS NOT A NUMBER), retorno true(STRING) or false(NUMBER)
         if (isNaN(this.getLastOperation())) {
 
@@ -84,28 +163,35 @@ class CalController {
                 this.setLastOperation(value);
 
             } else if (isNaN(value)) {
-                console.log(value);
+                console.log('outra coisa' + value);
 
             } else {
-                this._operation.push(value);
+                this.pushOperation(value);
+
+                this.setLastNumberToDisplay();
             }
 
-
         } else {
-            let newValue = this.getLastOperation().toString() + value.toString();
-            //push para inserir itens no array
-            //this._operation.push(newValue);
 
-            this.setLastOperation(parseInt(newValue));
+            if (this.isOperator(value)) {
 
+                this.pushOperation(value);
+
+            } else {
+
+                let newValue = this.getLastOperation().toString() + value.toString();
+                //push para inserir itens no array
+                //this._operation.push(newValue);
+
+                this.setLastOperation(parseInt(newValue));
+
+                this.setLastNumberToDisplay();
+            }
         }
-
-
     }
 
     setError() {
         this.displayCalc = "Error";
-
     }
 
     execBtn(value) {
@@ -140,6 +226,7 @@ class CalController {
                 break;
 
             case 'igual':
+                this.calc();
                 break;
 
             case 'ponto':
