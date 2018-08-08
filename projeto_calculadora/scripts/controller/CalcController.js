@@ -103,6 +103,7 @@ class CalController {
         let last = '';
 
         this._lastOperator = this.getLastItem();
+        
 
         if (this._operation.length > 3) {
             last = this._operation.pop();
