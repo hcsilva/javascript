@@ -52,18 +52,16 @@ class CalController {
         //para zera o array
         this._operation = [];
 
-      //  this.setLastNumberToDisplay();
+        //  this.setLastNumberToDisplay();
         this.displayCalc = 0
 
     }
 
     clearEntry() {
         //pop retira o último item adicionado no array
-        this._operation.pop;
+        this._operation.pop();
 
         this.setLastNumberToDisplay();
-
-        console.log('operation', this._operation)
 
     }
 
@@ -185,7 +183,7 @@ class CalController {
             } else {
                 this.pushOperation(value);
 
-               this.setLastNumberToDisplay();
+                this.setLastNumberToDisplay();
             }
 
         } else {
