@@ -52,7 +52,8 @@ class CalController {
         //para zera o array
         this._operation = [];
 
-        this.setLastNumberToDisplay();
+      //  this.setLastNumberToDisplay();
+        this.displayCalc = 0
 
     }
 
@@ -61,6 +62,8 @@ class CalController {
         this._operation.pop;
 
         this.setLastNumberToDisplay();
+
+        console.log('operation', this._operation)
 
     }
 
@@ -104,13 +107,21 @@ class CalController {
 
         this._lastOperator = this.getLastItem();
 
+        if (this._operation.length < 3) {
+            let firstItem = this._operation[0];
+            this._operation = [firstItem, this._lastOperator, this._lastNumber];
+
+        }
+
+
         if (this._operation.length > 3) {
             last = this._operation.pop();
-
             this._lastNumber = this.getResult();
+
         } else if (this._operation.length == 3) {
 
             this._lastNumber = this.getLastItem(false);
+
         }
 
 
@@ -126,6 +137,7 @@ class CalController {
 
             if (last) this._operation.push(last);
         }
+
         this.setLastNumberToDisplay();
     }
 
@@ -135,10 +147,15 @@ class CalController {
 
         for (let i = this._operation.length - 1; i >= 0; i--) {
 
-                if (this.isOperator(this._operation[i]) == isOperator) {
-                    lastItem = this._operation[i];
-                    break;
-                }
+            if (this.isOperator(this._operation[i]) == isOperator) {
+                lastItem = this._operation[i];
+                break;
+            }
+        }
+
+        if (!lastItem) {
+            lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
+
         }
 
         return lastItem;
@@ -168,7 +185,7 @@ class CalController {
             } else {
                 this.pushOperation(value);
 
-                this.setLastNumberToDisplay();
+               this.setLastNumberToDisplay();
             }
 
         } else {
@@ -203,6 +220,7 @@ class CalController {
 
             case 'ce':
                 this.clearEntry();
+                console.log('entrou aqui')
                 break;
 
             case 'soma':
