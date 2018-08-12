@@ -20,6 +20,32 @@ class CalController {
 
     }
 
+    pasteFromClipboard(){
+
+        document.addEventListener('paste', e=>{
+          let text = e.clipboardData.getData('Text');
+
+            this.displayCalc = parseFloat(text);
+
+        });
+    }
+
+
+    copyToClipboard() {
+
+        let input = document.createElement('input');
+
+        input.value = this.displayCalc;
+        //precisa selecionar o corpo do html, para poder ser feita a colagem
+        document.body.appendChild(input);
+        input.select();
+
+        document.execCommand("Copy");
+
+        // para a ctrl + c, não aparecer na tela do usuário
+        input.remove();
+    }
+
     initialized() {
         //função executada em um intervalo de tempo, milisegundos
 
@@ -32,6 +58,7 @@ class CalController {
         }, 1000);
 
         this.setLastNumberToDisplay();
+        this.pasteFromClipboard();
 
         //innerHTML, coloque uma informação lá dentro, no formato HTML
         //displayCalcEl.innerHTML="4567";
@@ -83,11 +110,10 @@ class CalController {
                     this.addOperation(parseInt(e.key));
                     break;
 
+                case 'c':
+                    if (e.ctrlKey) this.copyToClipboard();
+                    break;
             }
-
-
-
-
 
         });
     }
