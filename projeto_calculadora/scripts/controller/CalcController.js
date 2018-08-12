@@ -1,6 +1,10 @@
 class CalController {
+    //let declarações dentro do bloco {}
+    //Var pode ser acessada em qualquer momento dentro do código
+
     constructor() {
 
+        //setando os atributos
         //_(underline) diz que o atributo é privado
         this._lastOperator = "";
         this._lastNumber = "";
@@ -12,15 +16,16 @@ class CalController {
         this._currentDate;
         this.initialized();
         this.iniButtonEvents();
+        this.initKeyboard();
 
     }
 
     initialized() {
         //função executada em um intervalo de tempo, milisegundos
-        //arow Function
 
         this.setDisplayDateTime();
 
+        //arow Function
         setInterval(() => {
             this.setDisplayDateTime();
 
@@ -32,6 +37,59 @@ class CalController {
         //displayCalcEl.innerHTML="4567";
         //this._dateCalcEl.innerHTML = "01/01/2018";
         //this._timeCalcEl.innerHTML = "00:00";
+    }
+
+    initKeyboard() {
+        document.addEventListener('keyup', e => {
+
+            switch (e.key) {
+                case 'Escape':
+                    this.clearAll();
+                    break;
+
+                case 'Backspace':
+                    this.clearEntry();
+                    break;
+
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                case '%':
+
+                    this.addOperation(e.key)
+                    break;
+
+                case 'Enter':
+                case '=':
+                    this.calc();
+                    break;
+
+                case '.':
+                case ',':
+                    this.addDot()
+                    break;
+
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    this.addOperation(parseInt(e.key));
+                    break;
+
+            }
+
+
+
+
+
+        });
     }
 
     //criando um  método onde vão ser passados todos os possíveis eventos
@@ -49,8 +107,10 @@ class CalController {
     }
 
     clearAll() {
-        //para zera o array
+        //para zerar o array
         this._operation = [];
+        // this._lastNumber='';
+        //this._lastOperator ='';
 
         //  this.setLastNumberToDisplay();
         this.displayCalc = 0
@@ -177,9 +237,6 @@ class CalController {
             if (this.isOperator(value)) {
                 this.setLastOperation(value);
 
-            } else if (isNaN(value)) {
-                console.log('outra coisa' + value);
-
             } else {
                 this.pushOperation(value);
 
@@ -198,7 +255,7 @@ class CalController {
                 //push para inserir itens no array
                 //this._operation.push(newValue);
 
-                this.setLastOperation(parseInt(newValue));
+                this.setLastOperation(newValue);
 
                 this.setLastNumberToDisplay();
             }
@@ -208,6 +265,24 @@ class CalController {
     setError() {
         this.displayCalc = "Error";
     }
+
+    addDot() {
+        let LastOperation = this.getLastOperation();
+
+        if (typeof LastOperation === 'string' && LastOperation.split('').indexOf('.') > -1) return;
+
+        if (this.isOperator(LastOperation) || !LastOperation) {
+            this.pushOperation('0.');
+        } else {
+            this.setLastOperation(LastOperation.toString() + '.');
+        }
+
+        this.setLastNumberToDisplay();
+
+
+    }
+
+
 
     execBtn(value) {
 
@@ -246,7 +321,7 @@ class CalController {
                 break;
 
             case 'ponto':
-                this.addOperation('.')
+                this.addDot()
                 break;
 
             case '0':
@@ -275,7 +350,7 @@ class CalController {
 
 
     iniButtonEvents() {
-        //all traz todos os elementos que ele encontrar na consulta, dentro do doc.
+        //querySelectorAll traz todos os elementos que ele encontrar na consulta, dentro do doc.
         let buttons = document.querySelectorAll("#buttons > g, #parts > g");
 
         buttons.forEach((btn, index) => {
