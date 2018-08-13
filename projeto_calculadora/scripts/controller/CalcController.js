@@ -6,6 +6,8 @@ class CalController {
 
         //setando os atributos
         //_(underline) diz que o atributo é privado
+        this._audio = new Audio('click.mp3');
+        this._audioOnOff = false;
         this._lastOperator = "";
         this._lastNumber = "";
         this._operation = [];
@@ -20,10 +22,10 @@ class CalController {
 
     }
 
-    pasteFromClipboard(){
+    pasteFromClipboard() {
 
-        document.addEventListener('paste', e=>{
-          let text = e.clipboardData.getData('Text');
+        document.addEventListener('paste', e => {
+            let text = e.clipboardData.getData('Text');
 
             this.displayCalc = parseFloat(text);
 
@@ -64,10 +66,37 @@ class CalController {
         //displayCalcEl.innerHTML="4567";
         //this._dateCalcEl.innerHTML = "01/01/2018";
         //this._timeCalcEl.innerHTML = "00:00";
+
+
+        //evento de duplo clique no botão AC, para ativar o som
+        document.querySelectorAll('.btn-ac').forEach(btn => {
+
+            btn.addEventListener('dblclick', e => {
+                this.toggleAudio();
+            });
+        });
+    }
+
+    //Método para ligar e desligar o audio
+    toggleAudio() {
+
+        this._audioOnOff = !this._audioOnOff;
+
+    }
+
+    playAudio() {
+
+        if (this._audioOnOff) {
+
+            this._audio.currentTime = 0;
+            this._audio.play();
+        }
     }
 
     initKeyboard() {
         document.addEventListener('keyup', e => {
+
+            this.playAudio();
 
             switch (e.key) {
                 case 'Escape':
@@ -312,6 +341,7 @@ class CalController {
 
     execBtn(value) {
 
+        this.playAudio();
         switch (value) {
             case 'ac':
                 this.clearAll();
