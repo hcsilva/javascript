@@ -6,7 +6,8 @@ class CalController {
 
         //setando os atributos
         //_(underline) diz que o atributo é privado
-        this._audio = new Audio('click.mp3');
+
+        this._audio = new Audio('click.mp3');//audio web api, não é nativo do java script
         this._audioOnOff = false;
         this._lastOperator = "";
         this._lastNumber = "";
@@ -88,6 +89,8 @@ class CalController {
 
         if (this._audioOnOff) {
 
+            //o audio precisa ser reiniciado a cada clique, para pode acompanha
+            //os cliques mais rápidos
             this._audio.currentTime = 0;
             this._audio.play();
         }
@@ -209,8 +212,13 @@ class CalController {
 
         //join, serve para juntar tudo, ele precisa de um parâmetro que vai ser o separador
         //nesse caso ele está juntando tudo dentro do array
-        return eval(this._operation.join(""));
-
+        try {
+            return eval(this._operation.join(""));
+        } catch (e) {
+            setTimeout(()=>{
+                this.setError();
+            },1);
+        }
     }
 
 
@@ -463,6 +471,12 @@ class CalController {
     }
 
     set displayCalc(value) {
+                
+        if (value.toString().length > 10){
+            this.setError();
+            return false;
+        }
+
         this._displayCalcEl.innerHTML = value;
     }
 
