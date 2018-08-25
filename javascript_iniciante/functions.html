@@ -1,0 +1,44 @@
+<script type="text/javascript">
+
+//primeira maneira de declarar uma função
+//ela só pode ser chamada abaixo da declaração
+
+//a e b são os parâmetros de entrada
+var sum = function(a,b){
+
+    return a+b
+}
+
+document.write(sum(2,2));
+
+
+document.write(subtract(3,2))
+
+//dessa forma a função pode ser chamada de qualquer ponto do código
+function subtract(a,b){
+    return a-b;
+
+}
+
+
+
+//arrow functions
+let testSum = (a,b)=>{
+return a+b;
+};
+document.write(testSum(50,50))
+
+
+//outra maneira de criar arrow functions
+let testSum2 = (a,b) => a+b;
+document.write(testSum(60,60))
+
+
+//arrow functions somente com 1 parâmero
+let testOnePar = a => 'here have a number: '+a;
+document.write(testOnePar(1));
+
+
+
+
+</script>

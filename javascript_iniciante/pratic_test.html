@@ -1,0 +1,43 @@
+<script type="text/javascript">
+
+var list = new Array();
+var i =0;
+var add;
+
+do{
+    let user  = new Object();
+
+    user.name = prompt("Name: ");
+    user.age = prompt("Age: ");
+    list[i] = user;
+    i++;
+    add = prompt("Do you wish add another user? (yes or no)")
+}while(add == 'yes');
+
+
+
+
+console.log(list);
+
+document.write('Maior de idade: <br>')
+list.forEach(element => {
+    if(element.age >= 18){
+        document.write(element.name+'<br>'+element.age+'<br>');
+    }
+});
+
+document.write('<br>')
+
+document.write('Menor de idade: <br>')
+for(user of list){
+    if(user.age < 18){
+        document.write(user.name+'<br>'+user.age+'<br>');
+
+    }
+
+}
+
+
+
+
+</script>

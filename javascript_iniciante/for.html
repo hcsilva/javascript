@@ -1,0 +1,66 @@
+<script type="text/javascript">
+
+var user = {
+    name: 'Henrique',
+    lastName: 'Silva',
+    age: 25
+};
+
+
+
+
+var user2 = new Object();
+user2.nome = 'Pedro';
+user2.lastName = 'Ferreira';
+user2.age = 30;
+
+var list1 = [user, user2];
+
+var list2 = [
+    {
+        name: 'Henrique',
+        lastName: 'Silva',
+        age: 25
+    },
+    {
+        name: 'Pedro',
+        lastName: 'Ferreira',
+        age: 25
+    }
+
+];
+
+console.log(list1,list2)
+
+
+//exemplo de com acessar os objetos
+
+//document.write(list2[1].name);
+document.write("Exemplo for normal <br> ")
+for(let i = 0; i< list2.length  ;i++){
+    document.write(list2[i].name+'<br>');
+}
+
+
+//outro exemplo for
+document.write('Exemplo com chave <br>')
+for(let key in list2){
+    document.write(list2[key].name+'<br>')
+}
+
+
+//exemplo foreach
+document.write('Exemplo foreach <br>')
+list2.forEach(element => {
+    document.write(element.name+'<br>')
+});
+
+document.write('Exemplo for com OF <br>')
+for(user of list1){
+    document.write(user.name + '<br>')
+
+}
+
+
+
+</script>

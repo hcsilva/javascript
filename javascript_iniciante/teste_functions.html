@@ -1,0 +1,25 @@
+<script type="text/javascript">
+
+
+    function calculator(numA,numB,operator){
+
+        if (operator == '+') {
+            return numA+numB
+        }else if (operator ==  '-') {
+            return numA-numB
+        }else if (operator == '*') {
+            return numA*numB
+        }else if (operator == '/') {
+            return numA/numB
+        } else{
+            return 'ERROR'
+        }
+    }
+
+    document.write(calculator(4,8,'+')+'<br>');
+    document.write(calculator(4,8,'-')+'<br>');
+
+
+
+
+</script>
