@@ -1,0 +1,107 @@
+<script type="text/javascript">
+    var user = { type: null, number: null }
+    var computer = { type: null, number: null }
+    var test=true;
+    var cont=1;
+
+
+do {
+
+user.type = prompt("Ímpar ou Par?");
+
+//need make a treatment, for remove accent and leave lowercase
+user.type = remove_accents(user.type).toLowerCase();
+
+console.log('fisr entrance: '+user.type);
+while(user.type != 'par' && user.type != 'impar'){
+alert('you digit a invalid type, please try again!')
+user.type = prompt("Ímpar ou Par?");
+user.type = remove_accents(user.type).toLowerCase();
+console.log(user.type);
+}
+
+if (user.type == "impar" || user.type == 'par') {
+        user.number = prompt("what is your number? ");
+        while(isNaN(user.number) == true ){
+            alert('You digit a invalid number, please try again!');
+            user.number = prompt("what is your number? ");
+        }
+
+        if (user.type == 'impar') {
+            computer.type = 'par';
+
+        } else {
+            computer.type = 'impar';
+        }
+
+        //in this case, the function 'Math.random', will generate a  randomic number between 0 and 10
+        computer.number = Math.floor(Math.random() * 11);
+
+        document.write('******GAME DATA******<br><br>');
+        document.write('GAME: '+cont+"<br>");
+        document.write('User<br> ' + 'Type: ' + user.type + "/ Number: " + user.number+'<br>');
+        document.write('Computer<br> ' + 'Type: ' + computer.type + '/ Number: ' + computer.number+'<br>');
+        document.write('Sum: '+(parseInt(user.number)+parseInt(computer.number))+'<br>');
+        document.write('<br><br>');
+
+        if ((parseInt(user.number) + parseInt(computer.number)) % 2 == 0) {
+            if (user.type == 'par') {
+                alert('USER WIN '+'Type: ' + user.type + "/ Number: " + user.number );
+
+
+            } else {
+                alert('COMPUTER WIN '+'Type: ' + computer.type + '/ Number: ' + computer.number);
+            }
+        } else {
+            if (user.type == 'impar') {
+                alert('USER WIN '+'Type: ' + user.type + "/ Number: " + user.number );
+
+            } else {
+                alert('COMPUTER WIN '+'Type: ' + computer.type + '/ Number: ' + computer.number);
+            }
+
+        }
+
+    }
+
+       var answer = prompt("Hey, do you a want continue the game? yes or no");
+ 
+    while(answer != 'yes' && answer != 'no'){
+        alert('invalid answer, please try again!');
+        answer = prompt("Hey, do you a want continue the game? yes or no");
+    }
+
+    if(answer == 'no'){
+        test = false;
+    } else{test = true}
+    
+    cont++
+} while (test);
+
+
+    
+//this function remove accents of the pt words
+    function remove_accents(str) {
+        with_accent = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝŔÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿŕ";
+        without_accent = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYRsBaaaaaaaceeeeiiiionoooooouuuuybyr";
+        newstr = "";
+        for (i = 0; i < str.length; i++) {
+            exchange = false;
+            for (a = 0; a < without_accent.length; a++) {
+                if (str.substr(i, 1) == with_accent.substr(a, 1)) {
+                    newstr += without_accent.substr(a, 1);
+                    exchange = true;
+                    break;
+                }
+            }
+            if (exchange == false) {
+                newstr += str.substr(i, 1);
+            }
+        }
+        return newstr;
+    }
+
+
+
+
+</script>
