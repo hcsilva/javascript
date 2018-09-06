@@ -1,0 +1,34 @@
+<script type="text/javascript">
+
+    //creating a class
+    class Page {
+        //creating a constructor
+        constructor(title, description, content) {
+            this.title = title || '';
+            this.description = description || '';
+            this.content = content || '';
+        }
+
+        //creating a method
+        //se usar o 'GET' aqui na frente, não precisa chamar
+        //home.display(), por exemplo, pode chamr o método sem o ()
+       get display() {
+            let html = `
+        <h1>${this.title}</h1>
+        <h2>${this.description}</h2>
+        <p>${this.content}</p> `;
+
+            document.write(html);
+
+        };
+
+
+    }
+
+    var home = new Page('Home', 'Pag. home', 'highlights of the week');
+
+    console.log(home);
+
+    home.display;
+
+</script>

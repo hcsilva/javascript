@@ -78,6 +78,8 @@ if (user.type == "impar" || user.type == 'par') {
 } while (test);
 
 
+console.log(remove_accents('éééééááá'));
+
     
 //this function remove accents of the pt words
     function remove_accents(str) {
@@ -87,6 +89,8 @@ if (user.type == "impar" || user.type == 'par') {
         for (i = 0; i < str.length; i++) {
             exchange = false;
             for (a = 0; a < without_accent.length; a++) {
+                console.log('valor do i: '+i+'    valor do a: '+a);
+                console.log('valor do str: '+str.substr(i, 1) +"    valor do with_accent: "+with_accent.substr(a, 1));
                 if (str.substr(i, 1) == with_accent.substr(a, 1)) {
                     newstr += without_accent.substr(a, 1);
                     exchange = true;
