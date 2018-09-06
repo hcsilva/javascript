@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <h2>Home</h2>
+  
+    <div id="username" class="name-user">
+
+    </div>
+
+    <div class="name-user">
+
+
+    </div>
+ 
+ 
+<script type="text/javascript"> 
+
+let name = "<h3>Henrique</h3>";
+
+document.getElementById('username').innerHTML = name;
+let elements = document.getElementsByClassName('name-user');
+
+for(let item of elements){
+    item.innerHTML = "Pedro";
+}
+
+
+</script>
+
+</body>
+</html>

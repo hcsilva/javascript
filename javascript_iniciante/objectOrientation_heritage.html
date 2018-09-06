@@ -1,0 +1,40 @@
+<script type="text/javascript">
+
+    //creating a class
+    class Page {
+        //creating a constructor
+        constructor(title, description, content) {
+            this.title = title || '';
+            this.description = description || '';
+            this.content = content || '';
+        }
+
+       get html() {
+            let html = `
+        <h1>${this.title}</h1>
+        <h2>${this.description}</h2>
+        <p>${this.content}</p> `;
+
+           return html;
+        };
+    }
+
+
+class HomePage extends Page{
+    constructor(title,description,content){
+        //através do super, conseguimos acessar os atributos do 
+        //método da classe pai(Page neste caso)
+        super(title.toUpperCase(),description,content);
+    }
+
+}
+
+
+    var home = new HomePage('Home', 'Pag. home', 'highlights of the week');
+
+    console.log(home);
+   // home.display;
+
+   document.write(home.html);
+
+</script>

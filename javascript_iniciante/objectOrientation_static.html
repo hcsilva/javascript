@@ -1,0 +1,21 @@
+<script type="text/javascript">
+
+    class Util {
+
+        static list(list) {
+            let html = `<ul>`;
+            for (let item of list) {
+                html += `
+                <li>${item}</li>
+                `;
+
+            }
+
+            html += '</ul>'
+
+            return html;
+        }
+    }
+
+    document.write(Util.list(['orange', 'lemon', 'apple']));
+</script>
